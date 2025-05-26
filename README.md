@@ -12,4 +12,4 @@ Ao executar o programa, será impresso 6 opções, 3 delas disponíveis procurar
 
 Ao digitar "1", o programa te dará 3 opções, digitar 1 para buscar um paciente por nome, digitar 2 para buscar um paciente por CPF, ou digitar 3 para voltar a tela anterior. Então, você deverá digitar o parâmetro escolhido para que o programa procure na lista de pacientes aquele que diz respeito ao que foi digitado, então, o programa imprime as informações de todos os pacientes que tenham dentro do parâmetro de pesquisa selecionado algum trecho igual àquilo digitado pelo usuário. 
 
-Para pesquisa por nome, o programa diferencia letras maiúsculas de minúscalas e para pesquisar por CPF, é necessário digitar os pontos e hífens.
+Para pesquisa por nome, o programa diferencia letras maiúsculas de minúscalas. Para pesquisar por CPF, é necessário digitar os pontos e hífens.
