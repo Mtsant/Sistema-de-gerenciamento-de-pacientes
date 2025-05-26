@@ -5,7 +5,7 @@ Projeto para a leitura e manipulação de um arquivo "bd_paciente.csv", armazena
 
 # Execução
 
-Para compilar, digita make e o arquivo será executado automaticamente.
+Para compilar, digite "make", e o arquivo será executado automaticamente.
 
 Ao executar o programa, será impresso 6 opções, 3 delas disponíveis procurar um paciente por seu nome ou CPF "1 - Consultar paciente", imprimir as informações de todos os paciente "5 - Imprimir lista de pacientes" e de encerrar o programa "Q - Sair". Para acessar a elas, é precisso digitar somente o caractere que aparece antes do hífen, caso outro caractere (que não o 1, o 5 ou o Q) seja digitado, o programa irá imprimir a mensagem:
 "Valor inválido."
