@@ -3,6 +3,10 @@ Trabalho prático de programação
 
 Projeto para a leitura e manipulação de um arquivo "bd_paciente.csv", armazenamento de seus dados em uma estrutura paciente e funções que permitam que o usuário altere o arquivo de determinadas maneiras. Até o momento, apenas as funções de impressão dos dados dos pacientes que atendam aos parâmetros de pesquisa por nome e CPF e impressão dos dados de todos os pacientes foram implementadas.
 
+# Repositório
+
+O arquivo makefile é usado para compilar e executar o programa, bd_paciente.csv contém a lista de pacientes, main.c contém o programa principal, paciente.c contém as funções e trabalho.h é o header, que referencia as funções no arquivo paciente.c.
+
 # Execução
 
 Para compilar, digite "make", e o arquivo será executado automaticamente.
