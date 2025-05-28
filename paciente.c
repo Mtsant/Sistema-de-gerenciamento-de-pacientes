@@ -5,19 +5,19 @@
 #include <string.h>
 #include <ctype.h>
 
-//void adicionar(Paciente **lista, int *qtd) {
+//void adicionar(Paciente **BDPaciente, int *qtd) {
    //qtd
 //}
 
-Paciente **cargar(int *qtd) { //carrega os arquivos de bd_paciente.csv em uma lista de pacientes
+Paciente **cargar(int *qtd) { //carrega os arquivos de bd_paciente.csv em uma BDPaciente de pacientes
    FILE *a = fopen("bd_paciente.csv", "rt"); // Abre o arquivo para leitura
    if (a == NULL) {
       printf("Arquivo não encontrado\n");
       return NULL; // Retorna nulo caso não seja possível abrir o arquivo
    }
 
-   Paciente **lista = (Paciente **)malloc(1000 * sizeof(Paciente*)); //aloca memória para lista
-   if (lista == NULL) {
+   Paciente **BDPaciente = (Paciente **)malloc(1000 * sizeof(Paciente*)); //aloca memória para BDPaciente
+   if (BDPaciente == NULL) {
       printf("Erro ao alocar memória\n");
       return NULL; // Retorna nulo caso não seja possível abrir o arquivo
    }
@@ -29,7 +29,7 @@ Paciente **cargar(int *qtd) { //carrega os arquivos de bd_paciente.csv em uma li
    char data[11];
    int i=0; //variáveis que irão guardar os valores obtidos da linha iterada do arquivo
    while (fscanf(a, "%d,%14[^,],%50[^,],%d,%10[^\n]", &id, cpf, nome, &idade, data) == 5) { //loop percorrendo cada linha do arquivo, separando variáveis por vírgula
-      Paciente *paciente = (Paciente *)malloc(sizeof(Paciente)); // Aloca memória para a estrutura da lista de pacientes
+      Paciente *paciente = (Paciente *)malloc(sizeof(Paciente)); // Aloca memória para a estrutura da BDPaciente de pacientes
       if (paciente == NULL) {
          printf("Erro ao alocar memória para paciente, encerrando programa.");
          return NULL;
@@ -39,16 +39,16 @@ Paciente **cargar(int *qtd) { //carrega os arquivos de bd_paciente.csv em uma li
       strcpy(paciente->nome,nome);
       paciente->idade = idade;
       strcpy(paciente->data,data); //define os elementos da estrutura paciente criados com os valores tirados do arquivo e usa a função strcpy para copiar o conteúdo da variável para estrutura caso seja uma string
-      lista[i]=paciente; //adiciona o paciente ao conjunto
+         BDPaciente[i]=paciente; //adiciona o paciente ao conjunto
       i++; //contador para saber a quantidade de pacientes
    }
 
    *qtd = i; //quantidade de pacientes
    fclose(a); //fecha o arquivo
-   return lista;
+   return BDPaciente;
 }
 
-void consultar(Paciente **pacientes, int *qtd) {
+void consultar(Paciente **BDPaciente, int *qtd) {
    char n;
    char v[51]; //variável que guarda o que o usuário escreverá, é usada tanto para procura por cpf como por nome
    printf("Escolha o modo de consulta\n");
@@ -62,9 +62,9 @@ void consultar(Paciente **pacientes, int *qtd) {
          printf("Digite o nome:\n");
          scanf("%50s", v);
          printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro"); //imprime usando tamanho de string determinado
-         for (int i=0; i<*qtd; i++) { //passa pela lista uma quantidade de vezes igual ao tamanho da lista
-            if (strstr(pacientes[i]->nome, v) != NULL) { //verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do nome de alguém
-               printf("%-5d %-15s %-30s %-7d %-12s\n", pacientes[i]->id, pacientes[i]->cpf, pacientes[i]->nome, pacientes[i]->idade, pacientes[i]->data); //caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa
+         for (int i=0; i<*qtd; i++) { //passa por BDPaciente uma quantidade de vezes igual ao tamanho de BDPaciente
+            if (strstr(BDPaciente[i]->nome, v) != NULL) { //verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do nome de alguém
+               printf("%-5d %-15s %-30s %-7d %-12s\n", BDPaciente[i]->id, BDPaciente[i]->cpf, BDPaciente[i]->nome, BDPaciente[i]->idade, BDPaciente[i]->data); //caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa
             }
          }
       }
@@ -73,9 +73,9 @@ void consultar(Paciente **pacientes, int *qtd) {
          printf("Digite o cpf:\n");
          scanf("%50s", v);
          printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro"); //imprime usando tamanho de string determinado
-         for (int i=0; i<*qtd; i++) { //passa pela lista uma quantidade de vezes igual ao tamanho da lista
-            if (strstr(pacientes[i]->cpf, v) != NULL) { //verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do cpf de alguém
-               printf("%-5d %-15s %-30s %-7d %-12s\n", pacientes[i]->id, pacientes[i]->cpf, pacientes[i]->nome, pacientes[i]->idade, pacientes[i]->data); //caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa
+         for (int i=0; i<*qtd; i++) { //passa por BDPaciente uma quantidade de vezes igual ao tamanho da BDPaciente
+            if (strstr(BDPaciente[i]->cpf, v) != NULL) { //verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do cpf de alguém
+               printf("%-5d %-15s %-30s %-7d %-12s\n", BDPaciente[i]->id, BDPaciente[i]->cpf, BDPaciente[i]->nome, BDPaciente[i]->idade, BDPaciente[i]->data); //caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa
             }
          }
       }
@@ -91,16 +91,16 @@ void consultar(Paciente **pacientes, int *qtd) {
    }
 }
 
-void imprimir_pcie(Paciente **pacientes, int *qtd) {
+void imprimir_pcie(Paciente **BDPaciente, int *qtd) {
    printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro"); //imprime usando tamanho de string determinado
-   for (int i=0;i<*qtd;i++){ //passa pela lista uma quantidade de vezes igual ao tamanho da lista
-      printf("%-5d %-15s %-30s %-7d %-12s\n", pacientes[i]->id, pacientes[i]->cpf, pacientes[i]->nome, pacientes[i]->idade, pacientes[i]->data); //imprime usando tamanho de string determinado
+   for (int i=0;i<*qtd;i++){ //passa por BDPaciente uma quantidade de vezes igual ao tamanho da BDPaciente
+      printf("%-5d %-15s %-30s %-7d %-12s\n", BDPaciente[i]->id, BDPaciente[i]->cpf, BDPaciente[i]->nome, BDPaciente[i]->idade, BDPaciente[i]->data); //imprime usando tamanho de string determinado
    }
 }
 
-void fim(Paciente **pacientes, int *qtd) { //função para liberar o espaço ocupado pelos pacientes e sua lista
+void fim(Paciente **BDPaciente, int *qtd) { //função para liberar o espaço ocupado pelos pacientes e BDPaciente
    for (int i=0;i<*qtd;i++) {
-      free(pacientes[i]); //passa pela lista de pacientes liberando espaço
+      free(BDPaciente[i]); //passa por BDPaciente liberando espaço da estrutura paciente individual
    }
-   free(pacientes); //libera espaço da lista de pacientes
+   free(BDPaciente); //libera espaço de BDPaciente
 }
