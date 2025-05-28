@@ -16,16 +16,16 @@ typedef struct paciente
 //Função para inserir um paciente
 Paciente **cargar(int *qtd);
 
-void inserir(Paciente **lista, int *qtd);
+void inserir(Paciente **BDPaciente, int *qtd);
 
 Paciente atualizar();
 
 Paciente remover();
 
-void consultar(Paciente **lista, int *qtd);
+void consultar(Paciente **BDPaciente, int *qtd);
 
-void imprimir_pcie(Paciente **lista, int *qtd);
+void imprimir_pcie(Paciente **BDPaciente, int *qtd);
 
-void fim(Paciente **lista, int *qtd);
+void fim(Paciente **BDPaciente, int *qtd);
 
 #endif
