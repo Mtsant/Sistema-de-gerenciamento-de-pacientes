@@ -12,4 +12,18 @@ Ao executar o programa, será impresso 6 opções, 3 delas disponíveis procurar
 
 Ao digitar "1", o programa te dará 3 opções, digitar 1 para buscar um paciente por nome, digitar 2 para buscar um paciente por CPF, ou digitar 3 para voltar a tela anterior. Então, você deverá digitar o parâmetro escolhido para que o programa procure na lista de pacientes aquele que diz respeito ao que foi digitado, então, o programa imprime as informações de todos os pacientes que tenham dentro do parâmetro de pesquisa selecionado algum trecho igual àquilo digitado pelo usuário. 
 
-Para pesquisa por nome, o programa diferencia letras maiúsculas de minúscalas. Para pesquisar por CPF, é necessário digitar os pontos e hífens.
+Para pesquisar por nome, o programa diferencia letras maiúsculas de minúscalas. Para pesquisar por CPF, é necessário digitar os pontos e hífens.
+
+# Funções
+
+cargar()
+Essa função é chamada ao iniciar o programa e ela é responsável por ler o arquivo "bd_paciente.csv", a primeira informação é o id, a segunda o CPF, a terceira o nome, a quarta a idade e, por fim, a data em que o paciente foi cadastrado no sistema. Esses dados são gravados na estrutura "paciente" que, por sua vez, é guardada em BDPaciente. Essas informações são separadas por vírgula no arquivo, ou seja, ao encontrar uma vírgula, o programa parte para o próximo campo e, ao chegar no final da linha, armazena a estrutura em BDPaciente e passa para a próxima.
+
+consultar()
+Função chamada ao digitar "1" no munu principal, passa por todos os pacientes (guardados em BDPaciente) e compara a string digitada pelo usuário, se o paciente em questão conter aquela string no respectivo campo escolhido pelo usuário, imprime todas as informações dele.
+
+imprimir_pcie()
+Função chamada ao digitar "5" no menu principal, passa por todos os pacientes (guardados em BDPaciente) e imprime suas informações na tela.
+
+fim()
+Função chamada ao digitar "q" (maiúsculo ou minúsculo) no menu principal. Ela recebe BDPaciente e itera por ele, liberando o espaço associado a cada paciente usando a função malloc por meio da função free(), então, libera também a memória alocada a BDPaciente usando free().
