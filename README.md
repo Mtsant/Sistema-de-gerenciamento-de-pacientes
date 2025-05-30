@@ -1,4 +1,4 @@
-# Ep1
+# Sistema de gerenciamento de dados
 Trabalho prático de programação
 
 Projeto para a leitura e manipulação de um arquivo "bd_paciente.csv", armazenamento de seus dados em uma estrutura paciente e funções que permitam que o usuário altere o arquivo de determinadas maneiras. Até o momento, apenas as funções de impressão dos dados dos pacientes que atendam aos parâmetros de pesquisa por nome e CPF e impressão dos dados de todos os pacientes foram implementadas.
@@ -31,3 +31,8 @@ Função chamada ao digitar "5" no menu principal, passa por todos os pacientes 
 
 fim()
 Função chamada ao digitar "q" (maiúsculo ou minúsculo) no menu principal. Ela recebe BDPaciente e itera por ele, liberando o espaço associado a cada paciente usando a função malloc por meio da função free(), então, libera também a memória alocada a BDPaciente usando free().
+
+# TADs
+
+paciente
+O campo id e idade são números inteiros, correspondem ao identificador e à idade do paciente respectivamente. Os campos nome, data e cpf são strings que, com exceção do primeiro, têm um tamanho fixo para todos os pacientes, sendo ele o tamanho padrão do campo mais o caractere "\0", que delimita o final da string. A exemplo do cpf, que sempre possui 14 caracteres (incluindo pontos e hífen) além do último caractere "\0", totalizando 15 caracteres, registra o cpf do paciente. Como o nome pode ter um valor desconhecido de caracteres a depender do paciente, lhe foi dado um tamanho arbitrário de 50, mais o último caractere. A data corresponde ao dia de quando foi criado o paciente no sistema.
