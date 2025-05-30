@@ -1,5 +1,5 @@
 # Sistema de gerenciamento de dados
-##Trabalho prático de programação
+## Trabalho prático de programação
 
 Projeto para a leitura e manipulação de um arquivo "bd_paciente.csv", armazenamento de seus dados em uma estrutura paciente e funções que permitam que o usuário altere o arquivo de determinadas maneiras. Até o momento, apenas as funções de impressão dos dados dos pacientes que atendam aos parâmetros de pesquisa por nome e CPF e impressão dos dados de todos os pacientes foram implementadas.
 
@@ -20,19 +20,19 @@ Para pesquisar por nome, o programa diferencia letras maiúsculas de minúscalas
 
 # Funções
 
-##cargar()
+## cargar()
 Essa função é chamada ao iniciar o programa e ela é responsável por ler o arquivo "bd_paciente.csv", a primeira informação é o id, a segunda o CPF, a terceira o nome, a quarta a idade e, por fim, a data em que o paciente foi cadastrado no sistema. Esses dados são gravados na estrutura "paciente" que, por sua vez, é guardada em BDPaciente. Essas informações são separadas por vírgula no arquivo, ou seja, ao encontrar uma vírgula, o programa parte para o próximo campo e, ao chegar no final da linha, armazena a estrutura em BDPaciente e passa para a próxima.
 
-##consultar()
+## consultar()
 Função chamada ao digitar "1" no munu principal, passa por todos os pacientes (guardados em BDPaciente) e compara a string digitada pelo usuário, se o paciente em questão conter aquela string no respectivo campo escolhido pelo usuário, imprime todas as informações dele.
 
-##imprimir_pcie()
+## imprimir_pcie()
 Função chamada ao digitar "5" no menu principal, passa por todos os pacientes (guardados em BDPaciente) e imprime suas informações na tela.
 
-##fim()
+## fim()
 Função chamada ao digitar "q" (maiúsculo ou minúsculo) no menu principal. Ela recebe BDPaciente e itera por ele, liberando o espaço associado a cada paciente usando a função malloc por meio da função free(), então, libera também a memória alocada a BDPaciente usando free().
 
 # TADs
 
-##paciente
+## paciente
 O campo id e idade são números inteiros, correspondem ao identificador e à idade do paciente respectivamente. Os campos nome, data e cpf são strings que, com exceção do primeiro, têm um tamanho fixo para todos os pacientes, sendo ele o tamanho padrão do campo mais o caractere "\0", que delimita o final da string. A exemplo do cpf, que sempre possui 14 caracteres (incluindo pontos e hífen) além do último caractere "\0", totalizando 15 caracteres, registra o cpf do paciente. Como o nome pode ter um valor desconhecido de caracteres a depender do paciente, lhe foi dado um tamanho arbitrário de 50, mais o último caractere. A data corresponde ao dia de quando foi criado o paciente no sistema.
