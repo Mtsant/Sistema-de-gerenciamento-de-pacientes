@@ -16,7 +16,7 @@ typedef struct paciente
 /*Função para carregar o arquivo .csv na coleção de pacientes BDPacientes*/
 Paciente **carregar(int *qtd);
 
-/*Função */
+/*Função ainda não implementada*/
 void inserir(Paciente **BDPaciente, int *qtd);
 
 /*Função ainda não implementada*/
