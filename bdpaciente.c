@@ -6,7 +6,6 @@
 #include <string.h>
 #include <ctype.h>
 
-/*
 struct bdpaciente {
    int qtd; //qtd de pacientes no banco
    BDPno *primeiro;
@@ -18,7 +17,7 @@ struct bdpaciente_no {
    BDPno *next;
    BDPno *prev;
 };
-*/
+
 
 BDPaciente *criar_bd() {
 	BDPaciente *bd = (BDPaciente *)malloc(sizeof(BDPaciente));
@@ -85,7 +84,7 @@ void consultar(BDPaciente *BDPaciente) {
 	  printf("1 - Por nome\n");
 	  printf("2 - Por CPF\n");
 	  printf("3 - Retornar ao menu principal\n");
-	  
+
 	  fgets(linha, sizeof(linha), stdin);
 
 	  if (strlen(linha) != 2 || linha[1] != '\n') {
@@ -95,19 +94,19 @@ void consultar(BDPaciente *BDPaciente) {
 
 	  n = linha[0];
 
- 	  if (n=='3') {
+	  if (n=='3') {
 		 break;
 	  }
-	   
+
 	  if (n=='1'){ /*consulta por nome*/
-	     BDPno *no = BDPaciente->ultimo;
+		 BDPno *no = BDPaciente->ultimo;
 		 printf("Digite o nome:\n");
 		 fgets(v, sizeof(v), stdin);
 		 v[strcspn(v, "\n")] = 0; //remove o enter
 		 printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro"); /*imprime usando tamanho de string determinado*/
 		 while (no!=NULL) { /*passa por BDPaciente uma quantidade de vezes igual ao tamanho de BDPaciente*/
-			if (strstr(no->info->nome, v) != NULL) { /*verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do nome de alguém*/
-			   printf("%-5d %-15s %-30s %-7d %-12s\n", no->info->id, no->info->cpf, no->info->nome, no->info->idade, no->info->data); /*caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa*/
+			if (strstr(paciente_get_nome(no->info), v) != NULL) { /*verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do nome de alguém*/
+			   printf("%-5d %-15s %-30s %-7d %-12s\n", paciente_get_id(no->info), paciente_get_cpf(no->info), paciente_get_nome(no->info), paciente_get_idade(no->info), paciente_get_data(no->info)); /*caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa*/
 			}
 			no = no->prev;
 		 }
@@ -120,8 +119,8 @@ void consultar(BDPaciente *BDPaciente) {
 		 v[strcspn(v, "\n")] = 0; //remove o enter
 		 printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro"); /*imprime usando tamanho de string determinado*/
 		 while (no!=NULL) { /*passa por BDPaciente uma quantidade de vezes igual ao tamanho da BDPaciente*/
-			if (strstr(no->info->cpf, v) != NULL) { /*verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do cpf de alguém*/
-				printf("%-5d %-15s %-30s %-7d %-12s\n", no->info->id, no->info->cpf, no->info->nome, no->info->idade, no->info->data); /*caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa*/
+			if (strstr(paciente_get_cpf(no->info), v) != NULL) { /*verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do cpf de alguém*/
+				printf("%-5d %-15s %-30s %-7d %-12s\n", paciente_get_id(no->info), paciente_get_cpf(no->info), paciente_get_nome(no->info), paciente_get_idade(no->info), paciente_get_data(no->info)); /*caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa*/
 			}
 			no = no->prev;
 		 }
@@ -155,8 +154,8 @@ int consultar_aux(BDPaciente *BDPaciente) {
 		v[strcspn(v, "\n")] = 0; //remove o enter
 		printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro"); /*imprime usando tamanho de string determinado*/
 		while (no!=NULL) { /*passa por BDPaciente uma quantidade de vezes igual ao tamanho de BDPaciente*/
-			if (strstr(no->info->nome, v) != NULL) { /*verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do nome de alguém*/
-			   printf("%-5d %-15s %-30s %-7d %-12s\n", no->info->id, no->info->cpf, no->info->nome, no->info->idade, no->info->data); /*caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa*/
+			if (strstr(paciente_get_nome(no->info), v) != NULL) { /*verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do nome de alguém*/
+			   printf("%-5d %-15s %-30s %-7d %-12s\n", paciente_get_id(no->info), paciente_get_cpf(no->info), paciente_get_nome(no->info), paciente_get_idade(no->info), paciente_get_data(no->info)); /*caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa*/
 			}
 			no = no->prev;
 		}
@@ -170,8 +169,8 @@ int consultar_aux(BDPaciente *BDPaciente) {
 		v[strcspn(v, "\n")] = 0; //remove o enter
 		printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro"); /*imprime usando tamanho de string determinado*/
 		while (no!=NULL) { /*passa por BDPaciente uma quantidade de vezes igual ao tamanho da BDPaciente*/
-			if (strstr(no->info->cpf, v) != NULL) { /*verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do cpf de alguém*/
-				printf("%-5d %-15s %-30s %-7d %-12s\n", no->info->id, no->info->cpf, no->info->nome, no->info->idade, no->info->data); /*caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa*/
+			if (strstr(paciente_get_cpf(no->info), v) != NULL) { /*verifica se a string presente no valor digitado pelo usuário condiz com alguma parte do cpf de alguém*/
+				printf("%-5d %-15s %-30s %-7d %-12s\n", paciente_get_id(no->info), paciente_get_cpf(no->info), paciente_get_nome(no->info), paciente_get_idade(no->info), paciente_get_data(no->info)); /*caso string v tenha uma parte igual ao nome de alguém, imprime as informações daquela pessoa*/
 			}
 			no = no->prev;
 		}
@@ -189,14 +188,14 @@ void imprimir_pcie(BDPaciente *BDPaciente) {
    printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro"); /*imprime usando tamanho de string determinado*/
    BDPno *no = BDPaciente->ultimo;
    while (no!=NULL){ /*passa por BDPaciente uma quantidade de vezes igual ao tamanho da BDPaciente*/
-	  printf("%-5d %-15s %-30s %-7d %-12s\n", no->info->id, no->info->cpf, no->info->nome, no->info->idade, no->info->data); /*imprime usando tamanho de string determinado*/
-      no = no->prev;
+	  printf("%-5d %-15s %-30s %-7d %-12s\n", paciente_get_id(no->info), paciente_get_cpf(no->info), paciente_get_nome(no->info), paciente_get_idade(no->info), paciente_get_data(no->info)); /*imprime usando tamanho de string determinado*/
+	  no = no->prev;
    }
 }
 
 BDPno* procurarNo(BDPaciente *BDPaciente, int id) {
 	BDPno *no = BDPaciente->primeiro;
-	while ((no != NULL) && (no->info->id != id)){
+	while ((no != NULL) && (paciente_get_id(no->info) != id)){
 		no = no->next;
 	}
 	return no;
@@ -212,6 +211,8 @@ void atualizar(BDPaciente *BDPaciente) {
 	char nome[51];
 	int idade;
 	char data[11];
+	int ch;
+	
 	if (consultar_aux(BDPaciente)==1) {
 		printf("Retornando ao menu.\n");
 		return;
@@ -225,16 +226,16 @@ void atualizar(BDPaciente *BDPaciente) {
 		printf("ID não encontrado, retornando ao menu.\n");
 		return;
 	}
-	
+
 	printf("Digite o novo valor para os campos: CPF (apenas dígitos), nome, idade, e data de cadastro. Para manter o valor atual, digite '-'.\n");
 	printf("CPF:\n");
 	fgets(cpf, sizeof(cpf), stdin);
 	cpf[strcspn(cpf, "\n")] = 0;
-	if (strlen(cpf)!=11) {
+	if (strlen(cpf)!=11 && strcmp(cpf, "-") != 0) {
 		printf("CPF inválido\n");
 		return;
 	}
-	sprintf(cpff, "%.3s.%.3s.%.3s-%.2s", cpf, cpf + 3, cpf + 6, cpf + 9);
+	while ((ch = getchar()) != '\n' && ch != EOF);
 	printf("Nome:\n");
 	fgets(nome, sizeof(nome), stdin);
 	nome[strcspn(nome, "\n")] = 0;
@@ -244,32 +245,36 @@ void atualizar(BDPaciente *BDPaciente) {
 	printf("Data de cadastro:\n");
 	fgets(data, sizeof(data), stdin);
 	data[strcspn(data, "\n")] = 0;
+	while ((ch = getchar()) != '\n' && ch != EOF);
 
 	if (strcmp(cpf, "-") == 0) {
-		strcpy(cpf, no->info->cpf);
+		strcpy(cpf, paciente_get_cpf(no->info));
+	}
+	else {
+		sprintf(cpff, "%.3s.%.3s.%.3s-%.2s", cpf, cpf + 3, cpf + 6, cpf + 9);
 	}
 	if (strcmp(nome, "-") == 0) {
-		strcpy(nome, no->info->nome);
+		strcpy(nome, paciente_get_nome(no->info));
 	}
 	if (strcmp(linha, "-") == 0) {
-		sprintf(linha, "%d", no->info->idade);
+		sprintf(linha, "%d", paciente_get_idade(no->info));
 	}
 	if (strcmp(data, "-") == 0){
-		strcpy(data, no->info->data);
+		strcpy(data, paciente_get_data(no->info));
 	}
-	
+
 	printf("Para confirmar novos valores para o registro abaixo digite 'S'.\n\n");
 	printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro");
 	printf("%-5d %-15s %-30s %-7d %-12s\n", id, cpf, nome, atoi(linha), data);
 
 	fgets(r, sizeof(r), stdin);
 	if (r[0]=='S' || r[0]=='s') {
-		strcpy(no->info->cpf,cpf);
-		strcpy(no->info->nome,nome);
+		paciente_set_cpf(no->info, cpf);
+		paciente_set_nome(no->info, nome);
 		if (sscanf(linha, "%d", &idade)==1) {
-			no->info->idade = idade;
+			paciente_set_idade(no->info, idade);
 		}
-		strcpy(no->info->data,data);
+		paciente_set_data(no->info, data);
 		printf("Registro alterado.\n");
 	}
 }
@@ -296,7 +301,7 @@ void remover(BDPaciente *BDPaciente) {
 
 	printf("Tem certeza que deseja excluir o registro? Digite 'S' para confirmar.\n\n");
 	printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro");
-	printf("%-5d %-15s %-30s %-7d %-12s\n", no->info->id, no->info->cpf, no->info->nome, no->info->idade, no->info->data);
+	printf("%-5d %-15s %-30s %-7d %-12s\n", paciente_get_id(no->info), paciente_get_cpf(no->info), paciente_get_nome(no->info), paciente_get_idade(no->info), paciente_get_data(no->info));
 
 	fgets(r, sizeof(r), stdin);
 	if (r[0]=='S' || r[0]=='s') {
@@ -325,7 +330,8 @@ void inserir(BDPaciente *BDPaciente) {
 	int idade;
 	char data[11];
 	char r[10];
-	
+	int ch;
+
 	printf("Digite o valor para os campos: CPF (apenas dígitos), nome, idade, e data de cadastro.\n");
 	printf("CPF:\n");
 	fgets(cpf, sizeof(cpf), stdin);
@@ -334,6 +340,7 @@ void inserir(BDPaciente *BDPaciente) {
 		printf("CPF inválido\n");
 		return;
 	}
+	while ((ch = getchar()) != '\n' && ch != EOF);
 	sprintf(cpff, "%.3s.%.3s.%.3s-%.2s", cpf, cpf + 3, cpf + 6, cpf + 9);
 	printf("Nome:\n");
 	fgets(nome, sizeof(nome), stdin);
@@ -345,19 +352,25 @@ void inserir(BDPaciente *BDPaciente) {
 		printf("Idade inválida.\n");
 		return;
 	}
-	
+
 	printf("Data de cadastro:\n");
 	fgets(data, sizeof(data), stdin);
 	data[strcspn(data, "\n")] = 0;
+	while ((ch = getchar()) != '\n' && ch != EOF);
+
 
 	printf("Confirma os valores para o novo registro? Digite 'S' para confirmar.\n\n");
+	int novo_id = 1;
+	if (BDPaciente->primeiro != NULL) {
+		novo_id = paciente_get_id(BDPaciente->primeiro->info) + 1;
+	}
 	printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro");
-	printf("%-5d %-15s %-30s %-7d %-12s\n", BDPaciente->primeiro->info->id + 1, cpff, nome, atoi(linha), data);
+	printf("%-5d %-15s %-30s %-7d %-12s\n", novo_id, cpff, nome, atoi(linha), data);
 
 	fgets(r, sizeof(r), stdin);
 	if (r[0]=='S' || r[0]=='s') {
-		Paciente *paciente = criar_paciente(BDPaciente->primeiro->info->id + 1, cpff, nome, idade, data);
-	
+		Paciente *paciente = criar_paciente(novo_id, cpff, nome, idade, data);
+
 		BDPno *no = (BDPno *)malloc(sizeof(BDPno));
 		no->info = paciente;
 		no->next = BDPaciente->primeiro;
@@ -382,8 +395,8 @@ void terminar(BDPaciente *BDPaciente) { /*função para liberar o espaço ocupad
 	BDPno *no2;
 	while (no!=NULL) {
 		no2 = no->prev;
-		fprintf(a, "%d,%s,%s,%d,%s\n", no->info->id,no->info->cpf,no->info->nome,no->info->idade,no->info->data);
-		free(no->info); /*passa por BDPaciente liberando espaço da estrutura paciente individual*/
+		fprintf(a, "%d,%s,%s,%d,%s\n", paciente_get_id(no->info), paciente_get_cpf(no->info), paciente_get_nome(no->info), paciente_get_idade(no->info), paciente_get_data(no->info));
+		destruir_paciente(no->info); /*passa por BDPaciente liberando espaço da estrutura paciente individual*/
 		free(no);
 		no = no2;
    }
