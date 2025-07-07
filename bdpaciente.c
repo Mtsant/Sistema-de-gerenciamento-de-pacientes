@@ -238,6 +238,7 @@ void atualizar(BDPaciente *BDPaciente) {
 		printf("CPF inválido\n");
 		return;
 	} /*se o cpf não tiver 11 dígitos e não for igual a '-', encerra a função*/
+	while ((ch = getchar()) != '\n' && ch != EOF); /*limpa o buffer*/
 	printf("Nome:\n");
 	fgets(nome, sizeof(nome), stdin);
 	nome[strcspn(nome, "\n")] = 0;
@@ -331,23 +332,23 @@ void inserir(BDPaciente *BDPaciente) {
 	int idade;
 	char data[11];
 	char r[10];
+	int ch;
 
 	printf("Digite o valor para os campos: CPF (apenas dígitos), nome, idade, e data de cadastro.\n");
 	printf("CPF:\n");
-	if (!fgets(cpf, sizeof(cpf), stdin)) return;
+	fgets(cpf, sizeof(cpf), stdin);
 	cpf[strcspn(cpf, "\n")] = 0;
 	if (strlen(cpf)!=11) {
 		printf("CPF inválido\n");
 		return;
 	}
+	while ((ch = getchar()) != '\n' && ch != EOF);
 	sprintf(cpff, "%.3s.%.3s.%.3s-%.2s", cpf, cpf + 3, cpf + 6, cpf + 9);
-
 	printf("Nome:\n");
-	if (!fgets(nome, sizeof(nome), stdin)) return;
+	fgets(nome, sizeof(nome), stdin);
 	nome[strcspn(nome, "\n")] = 0;
-
 	printf("Idade:\n");
-	if (!fgets(linha, sizeof(linha), stdin)) return;
+	fgets(linha, sizeof(linha), stdin);
 	linha[strcspn(linha, "\n")] = 0;
 	if (sscanf(linha, "%d", &idade)!=1) {
 		printf("Idade inválida.\n");
@@ -355,8 +356,10 @@ void inserir(BDPaciente *BDPaciente) {
 	}
 
 	printf("Data de cadastro:\n");
-	if (!fgets(data, sizeof(data), stdin)) return;
+	fgets(data, sizeof(data), stdin);
 	data[strcspn(data, "\n")] = 0;
+	while ((ch = getchar()) != '\n' && ch != EOF);
+
 
 	printf("Confirma os valores para o novo registro? Digite 'S' para confirmar.\n\n");
 	int novo_id = 1;
@@ -364,9 +367,9 @@ void inserir(BDPaciente *BDPaciente) {
 		novo_id = paciente_get_id(BDPaciente->primeiro->info) + 1; 
 	}
 	printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro");
-	printf("%-5d %-15s %-30s %-7d %-12s\n", novo_id, cpff, nome, idade, data);
+	printf("%-5d %-15s %-30s %-7d %-12s\n", novo_id, cpff, nome, atoi(linha), data);
 
-	if (!fgets(r, sizeof(r), stdin)) return;
+	fgets(r, sizeof(r), stdin);
 	if (r[0]=='S' || r[0]=='s') {
 		Paciente *paciente = criar_paciente(novo_id, cpff, nome, idade, data);
 
