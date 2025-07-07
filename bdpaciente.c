@@ -238,7 +238,6 @@ void atualizar(BDPaciente *BDPaciente) {
 		printf("CPF inválido\n");
 		return;
 	} /*se o cpf não tiver 11 dígitos e não for igual a '-', encerra a função*/
-	while ((ch = getchar()) != '\n' && ch != EOF); /*limpa o buffer*/
 	printf("Nome:\n");
 	fgets(nome, sizeof(nome), stdin);
 	nome[strcspn(nome, "\n")] = 0;
