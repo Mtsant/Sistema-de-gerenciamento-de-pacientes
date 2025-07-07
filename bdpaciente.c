@@ -8,22 +8,22 @@
 
 struct bdpaciente {
    int qtd; //qtd de pacientes no banco
-   BDPno *primeiro;
-   BDPno *ultimo;
+   BDPno *primeiro; //ponteiro para o primeiro paciente
+   BDPno *ultimo; //ponteiro para o último paciente
 };
 
-struct bdpaciente_no {
-   Paciente *info;
-   BDPno *next;
-   BDPno *prev;
+struct bdpaciente_no { //estrutura que guarda os pacientes
+   Paciente *info; //ponteiro para a estrutura paciente
+   BDPno *next; //ponteiro para o próximo paciente
+   BDPno *prev; //ponteiro para o paciente anterior
 };
 
-
-BDPaciente *criar_bd() {
-	BDPaciente *bd = (BDPaciente *)malloc(sizeof(BDPaciente));
-	bd->qtd = 0;
-	bd->primeiro = NULL;
-	bd->ultimo = NULL;
+/*função para criar o BDPaciente*/
+BDPaciente *criar_bd() { 
+	BDPaciente *bd = (BDPaciente *)malloc(sizeof(BDPaciente)); //aloca memória para a estrutura BDPaciente
+	bd->qtd = 0; //inicializa a quantidade de pacientes como 0
+	bd->primeiro = NULL; //inicializa o primeiro paciente como NULL
+	bd->ultimo = NULL; //inicializa o último paciente como NULL
 	return bd;
 }
 
@@ -50,7 +50,7 @@ BDPaciente *carregar() { /*carrega os arquivos de bd_paciente.csv em uma BDPacie
 	   Paciente *paciente = criar_paciente(id, cpf, nome, idade, data);
 	   if (paciente == NULL) {
 		  printf("Erro ao alocar memória para paciente, encerrando programa.");
-		  //terminar(BDPaciente);
+		  terminar_erro(BDPaciente);
 		  return NULL;
 	   } /*encerra programa caso haja um erro ao alocar espaço para o paciente*/
 	   BDPno *no = (BDPno *)malloc(sizeof(BDPno));
@@ -132,6 +132,7 @@ void consultar(BDPaciente *BDPaciente) {
    }
 }
 
+/*função auxiliar para consulta usada por outras funções, diferente da outra porque se o usuário não colocar nem 1 nem 2 a função encerra*/
 int consultar_aux(BDPaciente *BDPaciente) {
    char linha[10];
    char n;
@@ -180,7 +181,7 @@ int consultar_aux(BDPaciente *BDPaciente) {
 
 	if (n!='1' || n!='2') {
 		return 1;
-	}
+	} /*se o usuário não digitar nem 1 ou 2 encerra a função e retorna 1 de modo a alertar a função que a chama para ser cancelada*/
 
 }
 
@@ -193,6 +194,7 @@ void imprimir_pcie(BDPaciente *BDPaciente) {
    }
 }
 
+/*passa por BDPaciente procurando o paciente do mesmo id*/
 BDPno* procurarNo(BDPaciente *BDPaciente, int id) {
 	BDPno *no = BDPaciente->primeiro;
 	while ((no != NULL) && (paciente_get_id(no->info) != id)){
@@ -216,7 +218,8 @@ void atualizar(BDPaciente *BDPaciente) {
 	if (consultar_aux(BDPaciente)==1) {
 		printf("Retornando ao menu.\n");
 		return;
-	}
+	} /*função auxiliar que, se der erro encerra essa função também*/
+
 	printf("Digite o ID do registro a ser atualizado:\n");
 	fgets(linha, sizeof(linha), stdin);
 	sscanf(linha, "%d", &id);
@@ -225,7 +228,7 @@ void atualizar(BDPaciente *BDPaciente) {
 	if (no==NULL) {
 		printf("ID não encontrado, retornando ao menu.\n");
 		return;
-	}
+	} /*procurando o paciente com o id digitado pelo usuário, se não existir, encerra a função*/
 
 	printf("Digite o novo valor para os campos: CPF (apenas dígitos), nome, idade, e data de cadastro. Para manter o valor atual, digite '-'.\n");
 	printf("CPF:\n");
@@ -234,8 +237,8 @@ void atualizar(BDPaciente *BDPaciente) {
 	if (strlen(cpf)!=11 && strcmp(cpf, "-") != 0) {
 		printf("CPF inválido\n");
 		return;
-	}
-	while ((ch = getchar()) != '\n' && ch != EOF);
+	} /*se o cpf não tiver 11 dígitos e não for igual a '-', encerra a função*/
+	while ((ch = getchar()) != '\n' && ch != EOF); /*limpa o buffer*/
 	printf("Nome:\n");
 	fgets(nome, sizeof(nome), stdin);
 	nome[strcspn(nome, "\n")] = 0;
@@ -245,14 +248,13 @@ void atualizar(BDPaciente *BDPaciente) {
 	printf("Data de cadastro:\n");
 	fgets(data, sizeof(data), stdin);
 	data[strcspn(data, "\n")] = 0;
-	while ((ch = getchar()) != '\n' && ch != EOF);
 
 	if (strcmp(cpf, "-") == 0) {
 		strcpy(cpf, paciente_get_cpf(no->info));
 	}
 	else {
 		sprintf(cpff, "%.3s.%.3s.%.3s-%.2s", cpf, cpf + 3, cpf + 6, cpf + 9);
-	}
+	} /*adiciona os pontos e hífen ao cpf*/
 	if (strcmp(nome, "-") == 0) {
 		strcpy(nome, paciente_get_nome(no->info));
 	}
@@ -261,7 +263,7 @@ void atualizar(BDPaciente *BDPaciente) {
 	}
 	if (strcmp(data, "-") == 0){
 		strcpy(data, paciente_get_data(no->info));
-	}
+	} /*se o usuário digitar hífen para o campo não muda ele*/
 
 	printf("Para confirmar novos valores para o registro abaixo digite 'S'.\n\n");
 	printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro");
@@ -307,7 +309,7 @@ void remover(BDPaciente *BDPaciente) {
 	if (r[0]=='S' || r[0]=='s') {
 		if (BDPaciente->primeiro==no) {
 			BDPaciente->primeiro = no->next;
-		}
+		} /*acerta os ponteiros, se for o primeiro paciente ou o último muda o ponteiro de BDPaciente, se não só muda o ponteiro de um nó para o outro*/
 		else {
 			no->prev->next = no->next;
 		}
@@ -318,7 +320,7 @@ void remover(BDPaciente *BDPaciente) {
 			no->next->prev = no->prev;
 		}
 		free(no->info);
-		free(no);
+		free(no); /*libera a memória do paciente e do nó*/
 	}
 }
 
@@ -362,7 +364,7 @@ void inserir(BDPaciente *BDPaciente) {
 	printf("Confirma os valores para o novo registro? Digite 'S' para confirmar.\n\n");
 	int novo_id = 1;
 	if (BDPaciente->primeiro != NULL) {
-		novo_id = paciente_get_id(BDPaciente->primeiro->info) + 1;
+		novo_id = paciente_get_id(BDPaciente->primeiro->info) + 1; 
 	}
 	printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro");
 	printf("%-5d %-15s %-30s %-7d %-12s\n", novo_id, cpff, nome, atoi(linha), data);
@@ -395,11 +397,23 @@ void terminar(BDPaciente *BDPaciente) { /*função para liberar o espaço ocupad
 	BDPno *no2;
 	while (no!=NULL) {
 		no2 = no->prev;
-		fprintf(a, "%d,%s,%s,%d,%s\n", paciente_get_id(no->info), paciente_get_cpf(no->info), paciente_get_nome(no->info), paciente_get_idade(no->info), paciente_get_data(no->info));
+		fprintf(a, "%d,%s,%s,%d,%s\n", paciente_get_id(no->info), paciente_get_cpf(no->info), paciente_get_nome(no->info), paciente_get_idade(no->info), paciente_get_data(no->info)); //escreve no arquivo as alterações no bqanco
 		destruir_paciente(no->info); /*passa por BDPaciente liberando espaço da estrutura paciente individual*/
 		free(no);
 		no = no2;
    }
 	fclose(a);
+	free(BDPaciente); /*libera espaço de BDPaciente*/
+}
+
+void terminar_erro(BDPaciente *BDPaciente) { /*função para liberar o espaço ocupado pelos pacientes e BDPaciente*/
+	BDPno *no = BDPaciente->ultimo;
+	BDPno *no2;
+	while (no!=NULL) {
+		no2 = no->prev;
+		destruir_paciente(no->info); /*passa por BDPaciente liberando espaço da estrutura paciente individual*/
+		free(no);
+		no = no2;
+   }
 	free(BDPaciente); /*libera espaço de BDPaciente*/
 }

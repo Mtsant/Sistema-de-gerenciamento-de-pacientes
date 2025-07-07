@@ -1,21 +1,21 @@
 #ifndef PACIENTE_H
 #define PACIENTE_H
 
-/*Declaração de estrutura "paciente" (opaca)*/
+/*declaração de estrutura paciente opaca*/
 typedef struct paciente Paciente;
 
-/*Funções de criação e destruição*/
+/*funções de criação e destruição*/
 Paciente *criar_paciente(int id, char *cpf, char *nome, int idade, char *data);
 void destruir_paciente(Paciente *paciente);
 
-/*Getters*/
+/*getters*/
 int paciente_get_id(const Paciente *paciente);
 const char *paciente_get_cpf(const Paciente *paciente);
 const char *paciente_get_nome(const Paciente *paciente);
 int paciente_get_idade(const Paciente *paciente);
 const char *paciente_get_data(const Paciente *paciente);
 
-/*Setters*/
+/*setters*/
 void paciente_set_id(Paciente *paciente, int id);
 void paciente_set_cpf(Paciente *paciente, const char *cpf);
 void paciente_set_nome(Paciente *paciente, const char *nome);

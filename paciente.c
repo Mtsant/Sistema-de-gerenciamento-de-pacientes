@@ -28,12 +28,13 @@ Paciente *criar_paciente(int id, char *cpf, char *nome, int idade, char *data) {
 }
 
 void destruir_paciente(Paciente *paciente) {
-    free(paciente);
+    free(paciente); /*libera a memória alocada para a estrutura paciente*/
+    paciente = NULL; /*define o ponteiro como NULL para evitar ponteiros soltos*/
 }
 
-// Getters
+//getters usados para retornar os valores dos campos do paciente
 int paciente_get_id(const Paciente *paciente) {
-    return paciente->id;
+    return paciente->id; 
 }
 const char *paciente_get_cpf(const Paciente *paciente) {
     return paciente->cpf;
@@ -47,7 +48,8 @@ int paciente_get_idade(const Paciente *paciente) {
 const char *paciente_get_data(const Paciente *paciente) {
     return paciente->data;
 }
-// Setters
+
+//setters usados para definir os valores dos campos do paciente
 void paciente_set_id(Paciente *paciente, int id) {
     paciente->id = id;
 }
