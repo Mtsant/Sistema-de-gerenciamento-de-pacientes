@@ -5,13 +5,13 @@ CC = gcc
 CFLAGS = -Wall
 
 # Source files
-SRCS = main.c paciente.c
+SRCS = main.c paciente.c bdpaciente.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)
 
 # Executable name
-TARGET = test
+TARGET = main
 
 # Phony targets
 .PHONY: all compile run clean
