@@ -331,23 +331,23 @@ void inserir(BDPaciente *BDPaciente) {
 	int idade;
 	char data[11];
 	char r[10];
-	int ch;
 
 	printf("Digite o valor para os campos: CPF (apenas dígitos), nome, idade, e data de cadastro.\n");
 	printf("CPF:\n");
-	fgets(cpf, sizeof(cpf), stdin);
+	if (!fgets(cpf, sizeof(cpf), stdin)) return;
 	cpf[strcspn(cpf, "\n")] = 0;
 	if (strlen(cpf)!=11) {
 		printf("CPF inválido\n");
 		return;
 	}
-	while ((ch = getchar()) != '\n' && ch != EOF);
 	sprintf(cpff, "%.3s.%.3s.%.3s-%.2s", cpf, cpf + 3, cpf + 6, cpf + 9);
+
 	printf("Nome:\n");
-	fgets(nome, sizeof(nome), stdin);
+	if (!fgets(nome, sizeof(nome), stdin)) return;
 	nome[strcspn(nome, "\n")] = 0;
+
 	printf("Idade:\n");
-	fgets(linha, sizeof(linha), stdin);
+	if (!fgets(linha, sizeof(linha), stdin)) return;
 	linha[strcspn(linha, "\n")] = 0;
 	if (sscanf(linha, "%d", &idade)!=1) {
 		printf("Idade inválida.\n");
@@ -355,10 +355,8 @@ void inserir(BDPaciente *BDPaciente) {
 	}
 
 	printf("Data de cadastro:\n");
-	fgets(data, sizeof(data), stdin);
+	if (!fgets(data, sizeof(data), stdin)) return;
 	data[strcspn(data, "\n")] = 0;
-	while ((ch = getchar()) != '\n' && ch != EOF);
-
 
 	printf("Confirma os valores para o novo registro? Digite 'S' para confirmar.\n\n");
 	int novo_id = 1;
@@ -366,9 +364,9 @@ void inserir(BDPaciente *BDPaciente) {
 		novo_id = paciente_get_id(BDPaciente->primeiro->info) + 1; 
 	}
 	printf("%-5s %-15s %-30s %-7s %-12s\n", "ID", "CPF", "Nome", "Idade", "Data Cadastro");
-	printf("%-5d %-15s %-30s %-7d %-12s\n", novo_id, cpff, nome, atoi(linha), data);
+	printf("%-5d %-15s %-30s %-7d %-12s\n", novo_id, cpff, nome, idade, data);
 
-	fgets(r, sizeof(r), stdin);
+	if (!fgets(r, sizeof(r), stdin)) return;
 	if (r[0]=='S' || r[0]=='s') {
 		Paciente *paciente = criar_paciente(novo_id, cpff, nome, idade, data);
 
